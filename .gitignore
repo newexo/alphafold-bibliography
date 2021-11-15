@@ -63,6 +63,10 @@ target/
 *.out
 *.lof
 *.toc
+*-blx.bib
+*.nav
+*.run.xml
+*.snm
 
 # Misc
 CVS
