@@ -1,5 +1,7 @@
 \documentclass{beamer}
 
+\input{MathMacros}
+
 % packages
 \usepackage{beamerthemesplit}
 \usepackage{enumerate}
@@ -31,14 +33,14 @@
 
       \item<2-> Define network architecture
       
-      \item<3-> Apply gradient decent
+      \item<3-> Apply gradient descent
       
    \end{itemize}
 }
 
 \frame
 {
-   \frametitle{Classical Neuralnet}
+   \frametitle{Classical Neural net}
    
    Refer to Fig. \ref{fig:neuralnet}.
    
@@ -53,17 +55,42 @@
    \frametitle{Dense Layers}
 
    \begin{itemize}
-      \item<1-> Linear function whose coefficients are parameter of model
+      \item<1-> Linear function whose coefficients are parameters of model
+
+         $$y_j = \sum_i w_{ij} x_{ij} + b_j$$
 
       \item<2-> Possible non-linear activation function
 
-      \begin{itemize}
-         \item tanh
-         \item sigmoid or softmax
-         \item relu
-      \end{itemize}
-      
+         $$F(y)$$
+
+         or
+
+         $$f(y_j)$$
+
    \end{itemize}
+}
+
+\frame
+{
+   \frametitle{Common activation functions, tanh and sigmoid}
+
+   $$\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}$$
+   $$\sigmoid(x) = \frac{1}{1 + e^{-x}}$$
+}
+
+
+\frame
+{
+   \frametitle{Common activation functions, softmax}
+
+   $$\softmax(x)_j = \frac{e^{x_j}}{\sum_i e^{x_i}}$$
+}
+
+\frame
+{
+   \frametitle{Common activation functions, relu}
+
+   $$\relu(x) = \max(x, 0)$$
 }
 
 \frame
@@ -73,7 +100,9 @@
    \begin{itemize}
       \item<1-> Entrywise multiplication of two previous layers outputs
 
-      \item<2-> Became popular with LSTM
+      $$(x \odot y)_i = x_i y_i$$
+
+      \item<2-> Became popular with LSTM and GRU
       
    \end{itemize}
 }
@@ -85,41 +114,93 @@
    \begin{itemize}
       \item<1-> Define a convex combination along axis of previous layer
 
-      \item<2-> Became popular with
+      $$y_i = F(x_i)$$
+
+      $$a_i = \softmax(\linear(y))_i$$
+
+      $$\sum_i a_i y_i$$
+
+      \item<2-> Became popular with question answering methods.
       
    \end{itemize}
 }
 
 \frame
 {
-   \frametitle{Tranformers with Multi-head Attention Layers}
+   \frametitle{Transformers with Multi-head Attention Layers}
 
    \begin{itemize}
-      \item<1-> Multi-dimensional attention
+      \item<1-> Multi-head attention. Layer produces three outputs $q$, $k$ and $v$
 
-      \item<2-> Defined in
+      $$\softmax ({qk^T}) v$$
+
+      \item<2-> Defined in \cite{vaswani2017attention}
       
    \end{itemize}
+}
+
+\frame
+{
+   \frametitle{Gradient descent}
+
+   $\phi$ a real-valued function of net output $F(x)$ and possible labeled observation $y$
+
+   $\Theta$ the parameters (linear coefficients)
+
+   Cost is
+   $$\phi(F(x|\Theta), y)$$
+
+   Minimize with respect to parameters using gradient 
+
+   $$\nabla_\Theta \phi(F(x|\Theta), y)$$
+}
+
+\frame
+{
+   \frametitle{Encoder-decoder pattern}
+
+   Train a pair of models, encoder to produce concise representation and decoder to reconstruct.
+
+   Later encoder and decoder can be used separately. 
 }
 
 \section{Inspiration Papers}
 
 \frame
 {
-   \frametitle{Human pose estimation with iterative error feedback\cite{carreira2016human}}
+   \frametitle{Bert: Pre-training of deep bidirectional transformers for language understanding}
 
-   equations
-}
-
-
-\frame
-{
-   \frametitle{Bert: Pre-training of deep bidirectional transformers for language understanding\cite{devlin2018bert}}
+   \cite{devlin2018bert}
 
    Model pretrained to reconstruct corrupted text and then finetuned
 }
 
+\frame
+{
+   \frametitle{Human pose estimation with iterative error feedback}
 
+   \cite{carreira2016human}
+
+   
+}
+
+\frame
+{
+   \frametitle{Self-training with noisy student improves imagenet classification}
+
+   \cite{xie2020self}
+
+   % equations
+}
+
+\frame
+{
+   \frametitle{Deep residual learning for image recognition}
+
+   \cite{he2016deep}
+
+   % equations
+}
 
 \begin{frame}[t,allowframebreaks]
 \frametitle{References}

@@ -68,6 +68,10 @@
 \DeclareMathOperator \Tr {Tr} % trace of a matrix
 \DeclareMathOperator \diag {diag} % diagonal matrix
 \DeclareMathOperator \supp {supp} % support of a function
+\DeclareMathOperator \sigmoid {sigmoid} % sigmoid function
+\DeclareMathOperator \softmax {softmax} % softmax function
+\DeclareMathOperator \relu {relu} % rectified linear function
+\DeclareMathOperator \linear {linear} % linear function with bias
 
 % category theory
 \DeclareMathOperator \Ob {Ob} % objects
@@ -108,49 +112,3 @@
 \newcommand{\poi}{{\mathcal{P}_1}} % Poincare class
 \newcommand{\MellinTransform}{\mathcal{M}} % Mellin Transform
 \newcommand{\MellinConvolution}{*_{\MellinTransform}} % Mellin convolution
-
-% environments and fonts for cifar-ten project
-\newcommand{\code}[1]{\texttt{{#1}}}
-
-% styles of theorems, definitions and remarks
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}%[section]
-\newtheorem{lemma}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{axiom}[thm]{Axiom}
-\newtheorem{exercise}[thm]{Exercise}
-\newtheorem{claim}[thm]{Claim}
-\newtheorem{fact}[thm]{Fact}
-
-\theoremstyle{definition}
-\newtheorem{defn}[thm]{Definition}
-
-\theoremstyle{remark}
-\newtheorem{remark}[thm]{Remark}
-\newtheorem{exmpl}[thm]{Example}
-\newtheorem{problem}[thm]{Problem}
-\newtheorem{prob}[thm]{Problem}
-\newtheorem{fle}[thm]{File}
-
-% page format
-\oddsidemargin=0in
-\evensidemargin=0in
-\textwidth=6in
-\topmargin=-0.5in
-\textheight=9.5in
-\parindent=.375in
-
-% packages
-\usepackage{enumerate}
-\usepackage{amssymb}
-%\usepackage[all,cmtip]{xy}
-\usepackage[mathscr]{eucal}
-\usepackage{graphicx,color}
-
-\newcommand{\titleChaos}[1]{\title[HW {#1}]{Introduction to Chaos, Homework {#1}}}
-
-%\begin{figure}[ht]
-%       \includegraphics[height=1in,keepaspectratio]{03NegativeHelix.jpg}
-%       \caption{Negative writhe crossings} \label{fig:negativeWritheCrossings}
-%\end{figure}
