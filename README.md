@@ -1,2 +1,2 @@
-# alphafold-bibliography
-Latex and bibtex for a proposed expositional paper on AlphaFold
+# bitesized-bibliography
+Latex and bibtex for expositional papers on applications of ML to biology.
