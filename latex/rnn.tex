@@ -73,11 +73,11 @@
    \begin{itemize}
       \item<1-> Activation, $h^j_t = o^j_t \tanh \prn{c^j_t}$.
       
-      \item<2-> Output gate, $o^j_t = \sigma \prn{W_o x_t + U_o h_{t-1} + V_o c_t}$
+      \item<2-> Output gate, $o^j_t = \sigma \prn{ \prn{W_o x_t + U_o h_{t-1} + V_o c_t}^j }$
 
       \item<3-> Memory cell, $c^j_t = f^j_t c^j_{t-1} + i^j_t \tilde c^j_t$
 
-      \item<4-> Memory content, $\tilde c^j_t = \tanh \prn{W_c x_t + U_c h_{t-1}}$
+      \item<4-> Memory content, $\tilde c^j_t = \tanh \prn{ \prn{W_c x_t + U_c h_{t-1}}^j }$
 
       \item<5-> Forget gate, $f^j_t = \sigma \prn{W_f x_t + U_f h_{t-1} + V_f c_{t-1}}$
 
