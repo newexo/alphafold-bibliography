@@ -1,0 +1,175 @@
+\documentclass{beamer}
+
+\input{MathMacros}
+
+% packages
+\usepackage{beamerthemesplit}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage[all,cmtip]{xy}
+\usepackage[mathscr]{eucal}
+\usepackage[natbib=true,style=authoryear,backend=bibtex,useprefix=true]{biblatex}
+\addbibresource{reading.bib}
+\usepackage{graphicx,color}
+
+\title{RL}
+\author{Reuben Brasher}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Pictures of games}
+
+\frame
+{
+   \frametitle{N-Armed Bandit}
+   
+   Refer to Fig. \ref{fig:narmed}.
+   
+   \begin{figure}[ht]
+      \includegraphics[height=2in,keepaspectratio]{images/Slot_machines_at_Wookey_Hole_Caves.JPG}
+      \caption{https://search.creativecommons.org/photos/70ab8654-c234-4dbe-9b1c-62851544245a} \label{fig:narmed}
+   \end{figure}
+}
+
+\frame
+{
+   \frametitle{Markov Decision Process}
+   
+   Refer to Fig. \ref{fig:mdp}.
+   
+   \begin{figure}[ht]
+      \includegraphics[height=2in,keepaspectratio]{images/Reinforcement_learning_diagram.svg.png}
+      \caption{https://search.creativecommons.org/photos/70ab8654-c234-4dbe-9b1c-62851544245a} \label{fig:mdp}
+   \end{figure}
+}
+
+\frame
+{
+   \frametitle{LSTM and GRU}
+
+   ``Long short-term memory''\cite{hochreiter1997long}
+
+   ``Empirical evaluation of gated recurrent neural networks on sequence modeling''\cite{chung2014empirical}
+}
+
+\frame
+{
+   \frametitle{LSTM and GRU secret sauce}
+
+   \begin{itemize}
+      \item<1-> Entrywise multiplication of two previous layers outputs
+
+      $$(x \odot y)_i = x_i y_i$$
+
+      \item<2-> Called gates because they are conintuous analogs of boolean and gates. If $x$ and $y$ are strictly 1 or 0, then
+      
+      $$x \wedge y = x \times y$$
+
+   \end{itemize}
+}
+
+
+\frame
+{
+   \frametitle{LSTM suggestive names}
+
+   \begin{itemize}
+      \item<1-> Activation, $h^j_t = o^j_t \tanh \prn{c^j_t}$.
+      
+      \item<2-> Output gate, $o^j_t = \sigma \prn{ \prn{W_o x_t + U_o h_{t-1} + V_o c_t}^j }$
+
+      \item<3-> Memory cell, $c^j_t = f^j_t c^j_{t-1} + i^j_t \tilde c^j_t$
+
+      \item<4-> Memory content, $\tilde c^j_t = \tanh \prn{ \prn{W_c x_t + U_c h_{t-1}}^j }$
+
+      \item<5-> Forget gate, $f^j_t = \sigma \prn{W_f x_t + U_f h_{t-1} + V_f c_{t-1}}$
+
+      \item<6-> Input gate, $i^j_t = \sigma \prn{W_i x_t + U_i h_{t-1} V_i c_{t-1}}$
+
+   \end{itemize}
+}
+
+\frame
+{
+   \frametitle{LSTM rewritten}
+
+   \begin{itemize}
+      \item<1-> Activation, $h_t = o_t \odot \tanh \prn{c_t}$.
+      
+      \item<2-> Output gate, $o_t = \sigma \prn{A_o \prn{x_t, h_{t-1}, c_t}}$
+
+      \item<3-> Memory cell, $c_t = f_t \odot c_{t-1} + i_t \odot \tilde c_t$
+
+      \item<4-> Memory content, $\tilde c_t = \tanh \prn{A_c \prn {x_t, h_{t-1}}}$
+
+      \item<5-> Forget gate, $f_t = \sigma \prn{ A_f \prn{x_t, h_{t-1}, c_{t-1}}}$
+
+      \item<6-> Input gate, $i_t = \sigma \prn{ A_i \prn{x_t, h_{t-1}, c_{t-1}}}$
+
+   \end{itemize}
+}
+
+\frame
+{
+   \frametitle{GRU suggestive names}
+
+   \begin{itemize}
+      \item<1-> Activation, $h_t = \prn{1 - z_t} \odot h_{t-1} + z_t \odot \tilde h_t$.
+      
+      \item<2-> Update gate, $z_t = \sigma \prn{A_z \prn{x_t, h_{t-1}}}$
+
+      \item<3-> Candidate activations, $\tilde h_t = \tanh \prn{A \prn{x, r \odot h_{t-1}}}$
+
+      \item<4-> Reset gate, $r_t = \sigma \prn{A_r \prn{x_t, h_{t-1}}}$
+
+   \end{itemize}
+}
+
+\section{RNN with attention}
+
+\frame
+{
+   \frametitle{Sequence to sequence with attention}
+
+   % image
+
+   ``Neural machine translation by jointly learning to align and translate'' \cite{bahdanau2014neural}
+}
+
+\frame
+{
+   \frametitle{Attention Layers}
+
+   \begin{itemize}
+      \item<1-> Let $x_j$ be the input sequence and $h_j$ encoding by RNN.
+
+      \item<2-> Let $y_i$ be the target sequence, and $s_i$ a hidden state.
+
+      \item<3-> $$s_i = f \prn{s_{i-1}, y_{i-1}, c_i}$$
+
+      \item<4-> $c_i$, called the context vector is
+
+      $$c_i = \sum_j \alpha_{ij} h_j$$
+
+      \item<5-> $\alpha_{ij}$ is the importance of $h_j$ for $s_i$
+
+      $$\alpha_{ij} = \frac{\exp \prn{e_{ij}}} {\sum_k \exp \prn{e_{ik}}}$$
+
+      where $e_{ij} = a \prn{a_{i-1}, h_j}$.
+
+      
+   \end{itemize}
+}
+
+\begin{frame}[t,allowframebreaks]
+   \frametitle{References}
+   \printbibliography
+\end{frame}
+
+\end{document}
