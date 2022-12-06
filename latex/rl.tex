@@ -27,13 +27,13 @@
 
 \frame
 {
-   \frametitle{N-Armed Bandit}
+   \frametitle{$k$-armed Bandit}
    
-   Refer to Fig. \ref{fig:narmed}.
+   %Refer to Fig. \ref{fig:narmed}.
    
    \begin{figure}[ht]
-      \includegraphics[height=2in,keepaspectratio]{images/Slot_machines_at_Wookey_Hole_Caves.JPG}
-      \caption{https://en.wikipedia.org/wiki/Slot_machine\#/media/File:Slot_machines_at_Wookey_Hole_Caves.JPG} \label{fig:narmed}
+      \includegraphics[height=1.8in,keepaspectratio]{images/Slot\_machines\_at\_Wookey\_Hole\_Caves.JPG}
+      \caption{From https://en.wikipedia.org/wiki/Slot\_machine} \label{fig:narmed}
    \end{figure}
 }
 
@@ -41,35 +41,37 @@
 {
    \frametitle{Markov Decision Process}
    
-   Refer to Fig. \ref{fig:mdp}.
+   %Refer to Fig. \ref{fig:mdp}.
    
    \begin{figure}[ht]
-      \includegraphics[height=2in,keepaspectratio]{images/Reinforcement_learning_diagram.svg.png}
-      \caption{https://en.wikipedia.org/wiki/Reinforcement_learning\#/media/File:Reinforcement_learning_diagram.svg} \label{fig:mdp}
+      \includegraphics[height=1.8in,keepaspectratio]{images/Reinforcement\_learning\_diagram.svg.png}
+      \caption{From https://en.wikipedia.org/wiki/Reinforcement\_learning} \label{fig:mdp}
    \end{figure}
 }
 
+\section{$k$-armed Bandits}
+
 \frame
 {
-   \frametitle{LSTM and GRU}
+   \frametitle{Problem}
 
-   ``Long short-term memory''\cite{hochreiter1997long}
-
-   ``Empirical evaluation of gated recurrent neural networks on sequence modeling''\cite{chung2014empirical}
+   Each round $t$ an agent may choose an action from $k$ possible. The agent
+   receives a reward sampled from a distribution conditioned on the action.
+   $$P(R_t|A_t)$$
+   The objective of the game is to learn which action will give the highest
+   expected reward.
 }
 
 \frame
 {
-   \frametitle{LSTM and GRU secret sauce}
+   \frametitle{$q_*$}
 
    \begin{itemize}
-      \item<1-> Entrywise multiplication of two previous layers outputs
+      \item<1-> If only we knew the \textit{value} of each action
 
-      $$(x \odot y)_i = x_i y_i$$
+      $$q_*(a) = \mathbb{E} [R_t | A_t=a].$$
 
-      \item<2-> Called gates because they are conintuous analogs of boolean and gates. If $x$ and $y$ are strictly 1 or 0, then
-      
-      $$x \wedge y = x \times y$$
+      \item<2-> We do not. We know $Q_t(a)$.
 
    \end{itemize}
 }
@@ -77,69 +79,34 @@
 
 \frame
 {
-   \frametitle{LSTM suggestive names}
+   \frametitle{Explore vs. Exploit}
 
    \begin{itemize}
-      \item<1-> Activation, $h^j_t = o^j_t \tanh \prn{c^j_t}$.
+      \item<1-> Greedy strategy is always choose current best 
+      $$\argmax_a Q_t(a)$$
       
-      \item<2-> Output gate, $o^j_t = \sigma \prn{ \prn{W_o x_t + U_o h_{t-1} + V_o c_t}^j }$
-
-      \item<3-> Memory cell, $c^j_t = f^j_t c^j_{t-1} + i^j_t \tilde c^j_t$
-
-      \item<4-> Memory content, $\tilde c^j_t = \tanh \prn{ \prn{W_c x_t + U_c h_{t-1}}^j }$
-
-      \item<5-> Forget gate, $f^j_t = \sigma \prn{W_f x_t + U_f h_{t-1} + V_f c_{t-1}}$
-
-      \item<6-> Input gate, $i^j_t = \sigma \prn{W_i x_t + U_i h_{t-1} V_i c_{t-1}}$
-
+      \item<2-> $\varepsilon$-Greedy strategy is to choose uniformly randomly
+      probability $\varepsilon$, and to follow greedy strategy otherwise.
+      
+      \item<3-> Upper confidence bound strategy is to choose
+      $$\argmax_a \sqbrak{Q_t(a) + c \sqrt{\frac{\ln t}{N_t(a)}}}$$
+      
    \end{itemize}
 }
 
-\frame
-{
-   \frametitle{LSTM rewritten}
-
-   \begin{itemize}
-      \item<1-> Activation, $h_t = o_t \odot \tanh \prn{c_t}$.
-      
-      \item<2-> Output gate, $o_t = \sigma \prn{A_o \prn{x_t, h_{t-1}, c_t}}$
-
-      \item<3-> Memory cell, $c_t = f_t \odot c_{t-1} + i_t \odot \tilde c_t$
-
-      \item<4-> Memory content, $\tilde c_t = \tanh \prn{A_c \prn {x_t, h_{t-1}}}$
-
-      \item<5-> Forget gate, $f_t = \sigma \prn{ A_f \prn{x_t, h_{t-1}, c_{t-1}}}$
-
-      \item<6-> Input gate, $i_t = \sigma \prn{ A_i \prn{x_t, h_{t-1}, c_{t-1}}}$
-
-   \end{itemize}
-}
+\section{Reinforcement Learning}
 
 \frame
 {
-   \frametitle{GRU suggestive names}
-
-   \begin{itemize}
-      \item<1-> Activation, $h_t = \prn{1 - z_t} \odot h_{t-1} + z_t \odot \tilde h_t$.
-      
-      \item<2-> Update gate, $z_t = \sigma \prn{A_z \prn{x_t, h_{t-1}}}$
-
-      \item<3-> Candidate activations, $\tilde h_t = \tanh \prn{A \prn{x, r \odot h_{t-1}}}$
-
-      \item<4-> Reset gate, $r_t = \sigma \prn{A_r \prn{x_t, h_{t-1}}}$
-
-   \end{itemize}
-}
-
-\section{RNN with attention}
-
-\frame
-{
-   \frametitle{Sequence to sequence with attention}
-
-   % image
-
-   ``Neural machine translation by jointly learning to align and translate'' \cite{bahdanau2014neural}
+   \frametitle{Finite Markov Decision Process}
+   
+   Agent and environment interact to produce a trajectory
+   
+   $$S_0,\,A_0,\,R_1,\,S_1,\,A_1,\,R_2,\,S_2,\,A_2,\,R_3,\dots$$
+   
+   State and reward depend on previous state and agent action
+   
+   $$p(s', r | s, a) = \Pr \prn{S_t=s', R_t=r | S_{t-1}=s,A_{t-a}=a}$$
 }
 
 \frame
