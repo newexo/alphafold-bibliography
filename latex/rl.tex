@@ -111,32 +111,132 @@
 
 \frame
 {
-   \frametitle{Attention Layers}
+   \frametitle{$G_t$}
 
    \begin{itemize}
-      \item<1-> Let $x_j$ be the input sequence and $h_j$ encoding by RNN.
+      \item<1-> \textit{Return}
+      $$G_t = R_{t+1} + R_{t+2} + R_{t+3} + \cdots + R_T$$
 
-      \item<2-> Let $y_i$ be the target sequence, and $s_i$ a hidden state.
+      \item<2-> \textit{Discounted return}
+      $$G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots = \sum^\infty_{k=0} \gamma ^k R_{t+k+1}$$
 
-      \item<3-> $$s_i = f \prn{s_{i-1}, y_{i-1}, c_i}$$
+   \end{itemize}
+}
 
-      \item<4-> $c_i$, called the context vector is
+\frame
+{
+   \frametitle{Policy, value and action value function}
+   
+   Agent responds to environment by sampling from \textit{policy} $\pi(a|s)$.
+   
+   $Value$ of state $s$ is
+   
+   $$v_\pi (s) = \mathbb{E} [G_t|S_t = s]$$
+   
+   Action value function is
+   $$q_\pi(s, a) = \mathbb{E} [G_t|S_t = s, A_t = a]$$ 
+}
 
-      $$c_i = \sum_j \alpha_{ij} h_j$$
+\frame
+{
+   \frametitle{If only we knew\dots}
+  
+   The \textit{optimal policy} $\pi_*$ or
+   
+   the \textit{optimal value} of state $s$
+   
+   $$v_* (s) = \max_\pi v_\pi(a)$$
+   
+   or the \textit{optimal action value function}
+   
+   $$q_*(s, a) = \max_\pi q_\pi(s, a)$$
+   
+   Note that
+   $$q_*(s, a) = \mathbb{E} \sqbrak{R_{t+1} + \gamma v_* \prn{S_{t+1}} | S_t = s, A_t=a}$$ 
+}
 
-      \item<5-> $\alpha_{ij}$ is the importance of $h_j$ for $s_i$
-
-      $$\alpha_{ij} = \frac{\exp \prn{e_{ij}}} {\sum_k \exp \prn{e_{ik}}}$$
-
-      where $e_{ij} = a \prn{a_{i-1}, h_j}$.
-
+\frame
+{
+   \frametitle{Bellman optimality equations}
+   
+   \begin{itemize}
+      \item<1-> Bellman equation is 
+      $$v_\pi(s) = \sum_a \pi(a|s) \sum_{s',r} p(s',r| s, a) \sqbrak{r + \gamma v_\pi(s')}$$
+      
+      \item<2-> Bellman optimality equation for value is
+      $$v_*(s) = \max_a \sum_{s', r} p(s', r| s, a) [r + \gamma v_*(s')]$$
+      
+      \item<3-> Bellman optimality equation for action value is
+      $$q_*(s,a) = \sum_{s', r} p(s', r| s, a) [r +  \gamma \max_{a'} q_*(s', a')]$$
       
    \end{itemize}
 }
 
-\begin{frame}[t,allowframebreaks]
-   \frametitle{References}
-   \printbibliography
-\end{frame}
+\frame
+{
+   \frametitle{Finding optimal policy}
+   
+   \begin{itemize}
+      \item<1-> By policy iteration (pg 121)
+      $$\pi_0 \to v_{\pi_0} \to \pi_1 \to v_{pi_1} \to \cdots \to \pi_* \to v_*$$
+      
+      \item<2-> By computing $q_*$
+      
+      \item<3-> By computing $v_*$
+      
+   \end{itemize}
+}
+
+\frame
+{
+   \frametitle{Temporal Difference}
+   Iteratively update $V$ to estimate $v_\pi$.   
+   
+   Update $V$ by
+   $$V(S_t) \leftarrow V(S_t) + \alpha \sqbrak{G_t - V(S_t)}$$
+   
+   Why wait though?
+   $$V(S_t) \leftarrow V(S_t) + \alpha \sqbrak{R_{t+1} + \gamma V(S_{t+1}) - V(S_t)}$$
+}
+
+\frame
+{
+   \frametitle{SARSA}
+   Iteratively update $Q$ to estimate $q_*$. (pg 151)   
+   
+   Update $Q$ by
+   $$Q(S_t,A_t) \leftarrow Q(S_t, A_t) + \alpha \sqbrak{R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t,A_t)}$$
+}
+
+\frame
+{
+   \frametitle{Q-learning}
+   Iteratively update $Q$ to estimate $q_*$. (pg 153)   
+   
+   Update $Q$ by
+   $$Q(S_t,A_t) \leftarrow Q(S_t, A_t) + \alpha \sqbrak{R_{t+1} + \gamma \max_a Q(S_{t+1}, a) - Q(S_t,A_t)}$$
+}
+
+\frame
+{
+   \frametitle{Policy Gradient}
+   Parameterize policy $\pi$ by $\theta$, for example
+   $$\pi(a|s, \theta) = \frac{e^{h(s, a, \theta)}}{\sum_b e^h{s, b, \theta}}$$
+   where $h(s, a, \theta)$ is ANN or similar.
+
+   Then $\pi$ has a gradient with respect to $\theta$, and $v_\pi$ can be 
+   improved by gradient ascent.
+}
+
+\frame
+{
+   \frametitle{Actor critic}
+   Parameterize policy $\pi$ by $\theta$, and estimate $v$ by $w$
+   $$\pi(a|s, \theta) = \frac{e^{h(s, a, \theta)}}{\sum_b e^h{s, b, \theta}}$$
+   where $h(s, a, \theta)$ is ANN or and so is $v(s, w)$.
+
+   Then $\pi$ has a gradient with respect to $\theta$, and $v$ with respect to
+   $w$. Improve $v$ and $\pi$ in turn by applying gradient updates.
+}
 
 \end{document}
