@@ -178,7 +178,7 @@
    
    \begin{itemize}
       \item<1-> By policy iteration (pg 121)
-      $$\pi_0 \to v_{\pi_0} \to \pi_1 \to v_{pi_1} \to \cdots \to \pi_* \to v_*$$
+      $$\pi_0 \to v_{\pi_0} \to \pi_1 \to v_{\pi_1} \to \cdots \to \pi_* \to v_*$$
       
       \item<2-> By computing $q_*$
       
@@ -221,7 +221,7 @@
 {
    \frametitle{Policy Gradient}
    Parameterize policy $\pi$ by $\theta$, for example
-   $$\pi(a|s, \theta) = \frac{e^{h(s, a, \theta)}}{\sum_b e^h{s, b, \theta}}$$
+   $$\pi(a|s, \theta) = \frac{e^{h(s, a, \theta)}}{\sum_b e^{h(s, b, \theta)}}$$
    where $h(s, a, \theta)$ is ANN or similar.
 
    Then $\pi$ has a gradient with respect to $\theta$, and $v_\pi$ can be 
@@ -232,7 +232,7 @@
 {
    \frametitle{Actor critic}
    Parameterize policy $\pi$ by $\theta$, and estimate $v$ by $w$
-   $$\pi(a|s, \theta) = \frac{e^{h(s, a, \theta)}}{\sum_b e^h{s, b, \theta}}$$
+   $$\pi(a|s, \theta) = \frac{e^{h(s, a, \theta)}}{\sum_b e^{h(s, b, \theta)}}$$
    where $h(s, a, \theta)$ is ANN or and so is $v(s, w)$.
 
    Then $\pi$ has a gradient with respect to $\theta$, and $v$ with respect to
