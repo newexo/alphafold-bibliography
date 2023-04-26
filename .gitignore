@@ -72,6 +72,8 @@ target/
 CVS
 *.pdf
 
-# MacOS nonsense
+# MacOS
 .DS_Store
-`
+
+# IDE
+.idea/
