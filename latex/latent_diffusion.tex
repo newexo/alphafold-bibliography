@@ -1,0 +1,78 @@
+\documentclass{beamer}
+
+\input{MathMacros}
+
+% packages
+\usepackage{beamerthemesplit}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage[all,cmtip]{xy}
+\usepackage[mathscr]{eucal}
+\usepackage[natbib=true,style=authoryear,backend=bibtex,useprefix=true]{biblatex}
+\addbibresource{reading.bib}
+\usepackage{graphicx,color}
+
+\title{Latent Diffusion}
+\author{Reuben Brasher}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Diffusion models}
+
+\frame
+{
+   \frametitle{Diffusion objective function}
+
+   $$L_{DM} = \mathbb{E}_{x,\epsilon \sim \mathcal{N}(0,1)} \sqbrak{\norm{\epsilon - \epsilon_\theta(x_t,t)}^2_2}$$
+}
+
+\frame
+{
+   \frametitle{Latent diffusion objective function}
+
+   Encode $x$ into a \textit{Latent space} as $z = \mathcal{E} (x)$.
+
+   $$L_{DM} = \mathbb{E}_{\mathcal{E}(x),\epsilon \sim \mathcal{N}(0,1)} \sqbrak{\norm{\epsilon - \epsilon_\theta(z_t,t)}^2_2}$$
+}
+
+\frame
+{
+   \frametitle{Cross-attention mechanism}
+
+   If $y$ is a modal input, such a text description compute $Q,K,V$ by
+
+   $$Q=W_Q \varphi(z_t)$$
+   $$K=W_K \tau(y)$$
+   $$V=W_V \tau(y)$$
+
+   Then Attention$(Q,K,V)=\softmax \prn{\frac{QK^T}{\sqrt{d}}} \cdot V$.
+}
+
+\frame
+{
+   \frametitle{Conditional latent diffusion objective function}
+
+   $$L_{DM} = \mathbb{E}_{\mathcal{E}(x),\epsilon \sim \mathcal{N}(0,1)} \sqbrak{\norm{\epsilon - \epsilon_\theta(z_t,t,\tau(y))}^2_2}$$
+}
+
+
+\frame
+{
+   \frametitle{Futher reading}
+   \cite{rombach2022high}
+   
+   \cite{zhang2023adding}
+}
+
+\begin{frame}[t,allowframebreaks]
+\frametitle{References}
+\printbibliography
+\end{frame}
+
+\end{document}
