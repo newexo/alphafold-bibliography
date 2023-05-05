@@ -1,0 +1,119 @@
+\documentclass{beamer}
+
+\input{MathMacros}
+
+% packages
+\usepackage{beamerthemesplit}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage[all,cmtip]{xy}
+\usepackage[mathscr]{eucal}
+\usepackage[natbib=true,style=authoryear,backend=bibtex,useprefix=true]{biblatex}
+\addbibresource{reading.bib}
+\usepackage{graphicx,color}
+
+\title{Testing in Software Development}
+\author{Reuben Brasher}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Diffusion models}
+
+\frame
+{
+   \frametitle{Why?}
+
+    Why test? Seriously.
+}
+
+\frame
+{
+   \frametitle{Automated vs. Manual}
+
+    Code accumulates.
+
+    Tests must accumulate too.
+}
+
+\frame
+{
+   \frametitle{Collaborative vs. Individual}
+
+    You are not the only person in the world.
+
+    Your friends love you, but they do not have time to read all of your code and docs.
+}
+
+\frame
+{
+   \frametitle{Reality}
+
+    If it is not tested, then it is broken.
+
+    If it is not tested, then it does not exist.
+
+    If it is documented, then the documentation lies.
+
+    If you fix a bug without adding a test, you did not fix the bug.
+}
+
+
+\frame
+{
+   \frametitle{Levels of testing}
+
+    Unit testing
+
+    Integration testing
+
+    Functional testing
+
+    Regression testing
+
+    And others
+}
+
+\frame
+{
+   \frametitle{Unit testing}
+
+    Test units of code, typically at the method or function level.
+}
+
+
+\frame
+{
+   \frametitle{Integration Testing}
+
+    Test the interactions between different components of a system to ensure they work together.
+}
+
+\frame
+{
+   \frametitle{Functional Testing}
+
+    Test that code functions according to specifications. Functional tests verify that code meets standards and
+    implements documented behavior.
+}
+
+\frame
+{
+   \frametitle{Regression Testing}
+
+    Test that behavior of code does not change when code changes.
+}
+
+
+
+\begin{frame}[t,allowframebreaks]
+\frametitle{References}
+\printbibliography
+\end{frame}
+
+\end{document}
