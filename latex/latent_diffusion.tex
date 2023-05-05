@@ -38,7 +38,7 @@
 
    Encode $x$ into a \textit{Latent space} as $z = \mathcal{E} (x)$.
 
-   $$L_{DM} = \mathbb{E}_{\mathcal{E}(x),\epsilon \sim \mathcal{N}(0,1)} \sqbrak{\norm{\epsilon - \epsilon_\theta(z_t,t)}^2_2}$$
+   $$L_{LDM} = \mathbb{E}_{\mathcal{E}(x),\epsilon \sim \mathcal{N}(0,1)} \sqbrak{\norm{\epsilon - \epsilon_\theta(z_t,t)}^2_2}$$
 }
 
 \frame
@@ -58,7 +58,7 @@
 {
    \frametitle{Conditional latent diffusion objective function}
 
-   $$L_{DM} = \mathbb{E}_{\mathcal{E}(x),\epsilon \sim \mathcal{N}(0,1)} \sqbrak{\norm{\epsilon - \epsilon_\theta(z_t,t,\tau(y))}^2_2}$$
+   $$L_{CLDM} = \mathbb{E}_{\mathcal{E}(x),\epsilon \sim \mathcal{N}(0,1)} \sqbrak{\norm{\epsilon - \epsilon_\theta(z_t,t,\tau(y))}^2_2}$$
 }
 
 
