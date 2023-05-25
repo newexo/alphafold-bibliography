@@ -1,0 +1,243 @@
+\documentclass{beamer}
+
+\input{MathMacros}
+
+% packages
+\usepackage{beamerthemesplit}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage[all,cmtip]{xy}
+\usepackage[mathscr]{eucal}
+\usepackage[natbib=true,style=authoryear,backend=bibtex,useprefix=true]{biblatex}
+\addbibresource{reading.bib}
+\usepackage{graphicx,color}
+\usepackage[normalem]{ulem}
+
+\title{Git Ritual}
+\author{Reuben Brasher}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Why?}
+
+\frame
+{
+   \frametitle{Why?}
+
+    Why git? Why PRs? Why the ritual?
+
+    \
+
+    \texttt{
+    git clone <my-fancy-project>
+    }
+
+}
+
+\frame
+{
+   \frametitle{Why?}
+
+    Why git? Seriously?
+
+    \
+
+    \texttt{git clone <my-fancy-project>}
+
+    \
+
+    Because we said so.
+}
+
+\frame
+{
+   \frametitle{Why?}
+
+    Why git? Seriously?
+
+    \
+
+    \texttt{
+    git clone <my-fancy-project>
+    }
+
+    \
+
+    \sout{Because we said so.}
+
+    Because you said you would.
+
+    Because millions of people do.
+
+    Because it works.
+
+    Because it is powerful.
+
+}
+
+\frame
+{
+   \frametitle{Courage}
+
+    You can be fearless!
+
+   \begin{itemize}
+      \item<1-> You can change
+
+      \item<2-> You can change back
+
+      \item<3-> You can delete
+
+   \end{itemize}
+
+}
+
+\frame
+{
+   \frametitle{Collaborative vs. Individual}
+
+    You are not the only person in the world.
+
+    Your friends love you, but they do not have time to read all of your code and docs.
+
+   \begin{itemize}
+      \item<1-> PR and review
+
+      \item<2-> History and blame
+
+      \item<3-> Overall metrics
+
+      \item<4-> Raise awareness of your work
+
+   \end{itemize}
+
+}
+
+\section{First steps}
+
+\frame
+{
+   \frametitle{Establish an account}
+
+    Use a registered email from your organization.
+}
+
+\frame
+{
+   \frametitle{Local identity}
+
+   \texttt{git config --global user.name "Your Name"}
+   \texttt{git config --global user.email "your@email.com"}
+
+}
+
+\frame
+{
+   \frametitle{SSH keys}
+
+   \texttt{ssh-keygen -t ed25519 -C "your\_email\@example.com"}
+
+   Please use a passphrase!
+
+   \texttt{cat \~/.ssh/id\_ed25519.pub}
+
+}
+
+\section{Next steps}
+
+
+\frame
+{
+   \frametitle{Clone existing repo}
+
+   \texttt{git clone <my-fancy-project>}
+
+}
+
+\frame
+{
+   \frametitle{Create from scratch}
+
+   Always have .gitignore
+
+    Always have README.md
+
+    Strongly consider LICENSE
+
+    Note that you are not just publishing current state, but commit history
+
+    Initially set repo as private
+
+}
+
+\frame
+{
+   \frametitle{Branch protection}
+
+   Branch protection!
+}
+
+\section{Day to day}
+
+\frame
+{
+   \frametitle{Basic work}
+
+Always work in a branch
+
+\texttt{git checkout -b rb/my\_cool\_feature}
+
+Commit often
+
+Commit changes to files in a descriptive manner
+
+Commit may reference Jira
+}
+
+
+\frame
+{
+   \frametitle{PR}
+
+   \texttt{git push}
+
+   Good commit description
+
+   Reference a jira ticket (No ticket?)
+
+   Request a review
+
+}
+
+\frame
+{
+   \frametitle{Merge PR}
+
+    Resolve conflicts
+
+    Rebase or merge locally
+
+    Make sure tests continue to pass
+}
+
+\frame
+{
+   \frametitle{Feature branches?}
+
+   Be cautious.
+}
+
+
+
+\begin{frame}[t,allowframebreaks]
+\frametitle{References}
+\printbibliography
+\end{frame}
+
+\end{document}
