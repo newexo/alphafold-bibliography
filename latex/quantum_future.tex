@@ -28,36 +28,6 @@
 
 \frame
 {
-   \frametitle{What to we want?}
-
-   $$U(\theta) \ket{0}^k \ket{\psi} = \ket{\phi},$$
-
-   where $U(\theta)$ is a unitary transform parameterized (perfectly) by $\theta$ and $\psi$ encodes arbitrary classical
-   data.
-}
-
-\frame
-{
-   \frametitle{If we cannot have that?}
-
-   $$U(\theta_\psi) \ket{0}^n = \ket{0}^k \ket{\psi},$$
-
-   where $U(\theta_\psi)$ is a unitary transform parameterized (perfectly) by $\theta_\psi$ depending on $\psi$. Hence
-
-   $$U(\theta) U(\theta_\psi) \ket{0}^n = \ket{\phi}.$$
-}
-
-\frame
-{
-   \frametitle{If we cannot have that?}
-
-   $$U(\theta) \ket{0}^n = \ket{something},$$
-
-   where $U(\theta)$ kind of depends on classical data.
-}
-
-\frame
-{
    \frametitle{What is a computer?}
 
    A computer is an isolated system for performing repeatable experiments controlled by user input.
@@ -67,38 +37,58 @@
 {
    \frametitle{What is a quantum computer?}
 
-   A computer is an isolated quantum system for performing repeatable experiments controlled by user input.
+   A quantum computer is an isolated quantum system for performing repeatable experiments controlled by user input.
 }
 
 \frame
 {
-   \frametitle{What is the Quantum Now?}
+   \frametitle{What is hybrid Quantum ML?}
 
    \begin{itemize}
-      \item<1-> A practical reality in which we understand that the math of quantum mechanics can define probability
-   distributions which can be sampled to solve real problems.
+      \item<1-> Quantum ML is a neural net where some layers happen to be quantum.
 
-      \item<2-> Computation is distributed. It may be quantum, and it may be classical. It may be CPU, and it may be
-   GPU.
+      \item<2-> Computation, both distributed and local quantum perform a series of transforms on data.
 
-      \item<3-> Computation is layered in classical and quantum layers.
-
-      \item<4-> Both classical and quantum computations are parameterized and the parameters of
-   the computations are learned.
+      \item<3-> Both classical and quantum computations are parameterized and the parameters of
+   the computations are learned to minimize a loss function.
 
    \end{itemize}
 }
 
 \frame
 {
-   \frametitle{What is the Quantum Now?}
+   \frametitle{What to we want as an ideal?}
 
-   Quantum computation is ML.
+    A general purpose quantum computer realizes
+
+   $$U(\theta) \ket{0}^k \ket{\psi} = \ket{something\ useful},$$
+
+   where $U(\theta)$ is a unitary transform parameterized (perfectly) by $\theta$ and $\psi$ encodes arbitrary classical
+   data.
 }
 
-\begin{frame}[t,allowframebreaks]
-\frametitle{References}
-\printbibliography
-\end{frame}
+\frame
+{
+   \frametitle{How do we do that?}
+
+   Encode the data by
+
+   $$U(\theta_\psi) \ket{0}^n = \ket{0}^k \ket{\psi},$$
+
+   where $U(\theta_\psi)$ is a unitary transform parameterized (perfectly) by $\theta_\psi$ depending on $\psi$. Hence
+
+   $$U(\theta) U(\theta_\psi) \ket{0}^n = \ket{something\ useful}.$$
+}
+
+\frame
+{
+   \frametitle{What happened?}
+
+   What has happened that computation simplifies to
+
+   $$U(\phi_\psi) \ket{0}^n = \ket{something\ useful},$$
+
+   where $\phi_\psi$ depends on classical data.
+}
 
 \end{document}
