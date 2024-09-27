@@ -67,6 +67,7 @@ target/
 *.nav
 *.run.xml
 *.snm
+*.vrb
 
 # Misc
 CVS
